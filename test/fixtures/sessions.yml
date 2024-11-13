@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  session_number: 1
+  date: 2024-11-13 00:28:08
+  summary: MyText
+  campaign: one
+
+two:
+  session_number: 1
+  date: 2024-11-13 00:28:08
+  summary: MyText
+  campaign: two
