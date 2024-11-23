@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_13_022106) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_22_190812) do
+  create_table "campaign_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "campaign_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaign_memberships_on_campaign_id"
+    t.index ["user_id"], name: "index_campaign_memberships_on_user_id"
+  end
+
   create_table "campaigns", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -19,6 +28,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_022106) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "access_code"
+    t.index ["access_code"], name: "index_campaigns_on_access_code", unique: true
     t.index ["user_id"], name: "index_campaigns_on_user_id"
   end
 
@@ -56,10 +67,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_022106) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "role"
+    t.string "user_role", default: "DM"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "campaign_memberships", "campaigns"
+  add_foreign_key "campaign_memberships", "users"
   add_foreign_key "campaigns", "users"
   add_foreign_key "characters", "campaigns"
   add_foreign_key "characters", "users"

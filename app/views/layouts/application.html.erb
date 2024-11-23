@@ -22,6 +22,18 @@
   </head>
 
   <body>
+    <header>
+      <nav>
+        <% if user_signed_in? %>
+          <%= link_to "Home", root_path, class: "btn btn-link" %>
+          <%= button_to "Logout", destroy_user_session_path, 
+                        method: :delete, 
+                        data: { turbo_confirm: "Are you sure you want to log out?" }, 
+                        class: "btn btn-link" %>
+        <% end %>
+      </nav>
+    </header>
+    
     <%= yield %>
   </body>
 </html>

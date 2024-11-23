@@ -1,0 +1,12 @@
+<h1>Join a Campaign</h1>
+
+<%= form_with url: campaign_memberships_path, local: true do %>
+  <div class="field">
+    <%= label_tag :access_code, "Campaign Code" %><br />
+    <%= text_field_tag :access_code, nil, class: "form-control", placeholder: "Enter campaign code" %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag "Join Campaign", class: "btn btn-primary" %>
+  </div>
+<% end %>

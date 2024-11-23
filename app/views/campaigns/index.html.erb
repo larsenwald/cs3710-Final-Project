@@ -1,0 +1,39 @@
+<h1>Campaigns</h1>
+
+<% if current_user.dm? %>
+  <p>Here are the campaigns you manage:</p>
+  <% @campaigns.each do |campaign| %>
+    <div>
+      <h2><%= link_to campaign.title, campaign_path(campaign) %></h2>
+      <p><%= campaign.description %></p>
+      <p>Setting: <%= campaign.setting %></p>
+      <p>Status: <%= campaign.active ? "Active" : "Inactive" %></p>
+      <div class="actions">
+        <%= link_to "Edit", edit_campaign_path(campaign), class: "btn btn-warning" %>
+        <%= button_to "Delete", campaign_path(campaign), 
+                      method: :delete, 
+                      data: { turbo_confirm: "Are you sure you want to delete this campaign?" },
+                      class: "btn btn-danger" %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to "Create New Campaign", new_campaign_path, class: "btn btn-primary" %>
+<% else %>
+  <p>Here are the campaigns you've joined:</p>
+  <% if @campaigns.any? %>
+    <% @campaigns.each do |campaign| %>
+      <div>
+        <h2><%= link_to campaign.title, campaign_path(campaign) %></h2>
+        <p><%= campaign.description %></p>
+        <p>Setting: <%= campaign.setting %></p>
+        <p>Status: <%= campaign.active ? "Active" : "Inactive" %></p>
+        <%= button_to "Leave Campaign", campaign_membership_path(campaign),
+                      method: :delete,
+                      data: { turbo_confirm: "Are you sure you want to leave this campaign?" },
+                      class: "btn btn-danger" %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= link_to "Join a Campaign", new_campaign_membership_path, class: "btn btn-primary mt-3" %>
+<% end %>

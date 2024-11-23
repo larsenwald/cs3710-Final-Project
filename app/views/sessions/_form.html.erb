@@ -1,0 +1,19 @@
+<%# app/views/sessions/_form.html.erb %>
+<%= form_with(model: [@campaign, @session], local: true) do |form| %>
+  <div>
+    <%= form.label :session_number %>
+    <%= form.number_field :session_number, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :date %>
+    <%= form.date_select :date, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :summary %>
+    <%= form.text_area :summary, class: "form-control" %>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>
